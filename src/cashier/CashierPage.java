@@ -19,12 +19,7 @@ public class CashierPage extends javax.swing.JFrame {
     public CashierPage() {
         initComponents();
         connection = BuiltSystem.CreateConnection(connection);
-        JFrame frame = new JFrame();
-        this.setVisible(true);
-        this.setLocation(50,50);
-        this.setSize(1300,600);
-        this.setResizable(false);
-        
+        StartingComponent();
         RefreshData();
     }
 
@@ -35,16 +30,16 @@ public class CashierPage extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         inputField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        staticLabelCashier = new javax.swing.JLabel();
+        staticLabelGardenia = new javax.swing.JLabel();
+        closeButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         productTable = new javax.swing.JTable();
         addButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
         itemSpinner = new javax.swing.JSpinner();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        staticLabelCart = new javax.swing.JLabel();
+        doneButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         changeLabel = new javax.swing.JLabel();
         totalLabel = new javax.swing.JLabel();
@@ -69,21 +64,21 @@ public class CashierPage extends javax.swing.JFrame {
         inputField.setText("Enter Product ID");
         inputField.setBorder(null);
 
-        jLabel1.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("/ Cashier");
+        staticLabelCashier.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 18)); // NOI18N
+        staticLabelCashier.setForeground(new java.awt.Color(102, 102, 102));
+        staticLabelCashier.setText("/ Cashier");
 
-        jLabel2.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Gardenia");
+        staticLabelGardenia.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 24)); // NOI18N
+        staticLabelGardenia.setForeground(new java.awt.Color(0, 0, 0));
+        staticLabelGardenia.setText("Gardenia");
 
-        jButton2.setBackground(new java.awt.Color(96, 94, 161));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("CLOSE");
-        jButton2.setBorder(null);
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        closeButton.setBackground(new java.awt.Color(96, 94, 161));
+        closeButton.setForeground(new java.awt.Color(255, 255, 255));
+        closeButton.setText("CLOSE");
+        closeButton.setBorder(null);
+        closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                closeButtonMouseClicked(evt);
             }
         });
 
@@ -149,11 +144,11 @@ public class CashierPage extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(staticLabelGardenia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(staticLabelCashier, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -177,8 +172,8 @@ public class CashierPage extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(staticLabelCashier, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(staticLabelGardenia, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -190,21 +185,21 @@ public class CashierPage extends javax.swing.JFrame {
                     .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(removeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
 
-        jLabel3.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Cart");
+        staticLabelCart.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 24)); // NOI18N
+        staticLabelCart.setForeground(new java.awt.Color(0, 0, 0));
+        staticLabelCart.setText("Cart");
 
-        jButton1.setBackground(new java.awt.Color(96, 94, 161));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("DONE");
-        jButton1.setBorder(null);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        doneButton.setBackground(new java.awt.Color(96, 94, 161));
+        doneButton.setForeground(new java.awt.Color(255, 255, 255));
+        doneButton.setText("DONE");
+        doneButton.setBorder(null);
+        doneButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                doneButtonMouseClicked(evt);
             }
         });
 
@@ -327,7 +322,7 @@ public class CashierPage extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(200, 200, 200)
-                                .addComponent(jLabel3))
+                                .addComponent(staticLabelCart))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -338,14 +333,14 @@ public class CashierPage extends javax.swing.JFrame {
                         .addGap(0, 16, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(146, 146, 146)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(staticLabelCart, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
@@ -355,7 +350,7 @@ public class CashierPage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
 
@@ -373,6 +368,12 @@ public class CashierPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void StartingComponent() {
+        this.setVisible(true);
+        this.setLocation(50,50);
+        this.setSize(1300,600);
+        this.setResizable(false);
+    }
     private void RefreshData() {
         BuiltSystem.debugLog("Running RefreshData()");
         
@@ -480,10 +481,10 @@ public class CashierPage extends javax.swing.JFrame {
     
     
     
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void closeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseClicked
         new LoginPage();
         this.dispose();
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_closeButtonMouseClicked
 
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         int selectedRow= productTable.getSelectedRow();
@@ -554,7 +555,7 @@ public class CashierPage extends javax.swing.JFrame {
         RefreshTotal();
     }//GEN-LAST:event_paymentFieldKeyPressed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void doneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doneButtonMouseClicked
         int total = 0;
         for (int i = 0; i < cartItems.size(); i++) {
             total += (cartItems.get(i).price * cartItems.get(i).quantity);
@@ -596,7 +597,7 @@ public class CashierPage extends javax.swing.JFrame {
         
         new CashierPage();
         this.dispose();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_doneButtonMouseClicked
 
     private void removeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeButtonMouseClicked
         String input = inputField.getText();
@@ -701,13 +702,10 @@ public class CashierPage extends javax.swing.JFrame {
     private javax.swing.JButton addButton;
     private javax.swing.JTable cartTable;
     private javax.swing.JLabel changeLabel;
+    private javax.swing.JButton closeButton;
+    private javax.swing.JButton doneButton;
     private javax.swing.JTextField inputField;
     private javax.swing.JSpinner itemSpinner;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -720,6 +718,9 @@ public class CashierPage extends javax.swing.JFrame {
     private javax.swing.JTextField paymentField;
     private javax.swing.JTable productTable;
     private javax.swing.JButton removeButton;
+    private javax.swing.JLabel staticLabelCart;
+    private javax.swing.JLabel staticLabelCashier;
+    private javax.swing.JLabel staticLabelGardenia;
     private javax.swing.JLabel totalLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,7 +18,8 @@ import suppliers.Suppliers;
 public class Products {
     
     Connection connection;
-    //Products Table
+
+    // Products Table
     public ArrayList<String> product_ids = new ArrayList<>();
     public ArrayList<String> category_ids = new ArrayList<>();
     public ArrayList<String> product_names = new ArrayList<>();            
@@ -27,7 +28,7 @@ public class Products {
     public ArrayList<String> product_prices = new ArrayList<>();
     public ArrayList<String> category_names = new ArrayList<>();
     
-    //Category List
+    // Category Table
     public ArrayList<String> category_list_ids = new ArrayList<>();
     public ArrayList<String> category_list_names = new ArrayList<>();
     
@@ -134,7 +135,6 @@ public class Products {
             int i;
             String product_last_update = BuiltSystem.getCurrentDateFormattedProduct();
             Statement stmt = connection.createStatement();
-            //Memeriksa apakah product sudah ada di tabel apa belum
             for(i = 0; i < product_ids.size(); i++) { 
                 String namex = product_names.get(i);
                 if(namex.equalsIgnoreCase(name)){
@@ -142,21 +142,14 @@ public class Products {
                 }
             }
             
-            
             System.out.println(stock);
-            // menambah stock jika produk sudah ada ditabel
             int new_stock = Integer.parseInt(product_stocks.get(i));
             new_stock += Integer.parseInt(stock);
             String stock_now = String.valueOf(new_stock);
             product_stocks.set(i, stock_now);
-
-            // merubah harga jika produk sudah ada ditabel
             product_prices.set(i, price);
-
-            // merubah last update product
             product_last_updates.set(i, product_last_update);
 
-            // query untuk update database
             String query = "update products SET product_stock = '"+product_stocks.get(i)+"', product_last_update = '"+product_last_updates.get(i)+"', product_price = '"+ product_prices.get(i) +"' WHERE product_id = '"+product_ids.get(i)+"';";
             stmt.execute(query);
             
@@ -174,19 +167,15 @@ public class Products {
             String product_last_update = BuiltSystem.getCurrentDateFormattedProduct();
             Statement stmt = connection.createStatement();
             
-            // mengurangi stock jika produk sudah ada ditabel
             int new_stock = Integer.parseInt(product_stocks.get(i));
             new_stock -= Integer.parseInt(stock);
             String stock_now = String.valueOf(new_stock);
             product_stocks.set(i, stock_now);
 
-            // merubah harga jika produk sudah ada ditabel
             product_prices.set(i, price);
 
-            // merubah last update product
             product_last_updates.set(i, product_last_update);
 
-            // query untuk update database
             String query = "update products SET product_stock = '"+product_stocks.get(i)+"', product_last_update = '"+product_last_updates.get(i)+"' WHERE product_id = '"+product_ids.get(i)+"';";
             stmt.execute(query);
             

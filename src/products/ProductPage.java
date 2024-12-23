@@ -2,21 +2,11 @@ package products;
 
 import members.*;
 import gardeniastoremanagementsystem.BuiltSystem;
-import gardeniastoremanagementsystem.GardeniaStoreManagementSystem;
 import dashboard.MainPage;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Window;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.sql.PreparedStatement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import login.LoginPage;
@@ -130,20 +120,21 @@ public class ProductPage extends javax.swing.JFrame {
             String price_now = products.product_prices.get(i);
             if (id.equals(input)) {
                 valid = true;
-                new ProductStockDelete(products.product_names.get(i), id, stock_now, price_now);
+                ProductStockDelete productStockDelete =  new ProductStockDelete(products.product_names.get(i), id, stock_now, price_now);
+                productStockDelete.setName("ProductStockDelete");
+                BuiltSystem.OpenWindow(productStockDelete, "ProductStockDelete");
             }         
         }   
         
         if(!valid) {
             deleteWarning.setText("Delete must use stock ID!!");
         }
-        SearchData();
+        RefreshData();
         BuiltSystem.debugLog("DeleteData() Completed");
     }
     
-    
     private void InsertData(){
-        BuiltSystem.debugLog("Running UpdateData()");
+        BuiltSystem.debugLog("Running InsertData()");
         DefaultTableModel tableModel = (DefaultTableModel)tableProducts.getModel();
         Products products = new Products();
         String id;
@@ -158,23 +149,25 @@ public class ProductPage extends javax.swing.JFrame {
             } else {
                 input = memberInputField.getText().toLowerCase();
             }
-            
             id = products.product_ids.get(i);
             String stock_now = products.product_stocks.get(i);
             String price_now = products.product_prices.get(i);
             if (id.equals(input)) {
                 valid = true;
-                new ProductStockInsert(products.product_names.get(i), id, stock_now, price_now);
+                ProductStockInsert productStockInsert =  new ProductStockInsert(products.product_names.get(i), id, stock_now, price_now);
+                productStockInsert.setName("ProductStockInsert");
+                BuiltSystem.OpenWindow(productStockInsert, "ProductStockInsert");
             }         
         }   
         
         if(!valid) {
             deleteWarning.setText("Insert must use stock ID!!");
         }
-        SearchData();
+        
+        RefreshData();
+        
         BuiltSystem.debugLog("*InsertData() Completed");
     }
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -621,13 +614,7 @@ public class ProductPage extends javax.swing.JFrame {
 
     private void homeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonMouseClicked
         BuiltSystem.debugLog("Home Button Clicked");
-        String specificWindowName = new MainPage().getName();
-
-        for (Window window : Window.getWindows()) {
-            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
-                window.dispose(); 
-            }
-        } 
+        BuiltSystem.CloseWindow(new MainPage().getName());   
     }//GEN-LAST:event_homeButtonMouseClicked
 
     private void homeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonMouseExited
@@ -635,15 +622,8 @@ public class ProductPage extends javax.swing.JFrame {
     }//GEN-LAST:event_homeButtonMouseExited
 
     private void memberButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_memberButtonMouseClicked
-
         BuiltSystem.debugLog("Member Button Clicked");
-        String specificWindowName = new MemberPage().getName();
-
-        for (Window window : Window.getWindows()) {
-            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
-                window.dispose(); 
-            }
-        } 
+        BuiltSystem.CloseWindow(new MemberPage().getName());   
     }//GEN-LAST:event_memberButtonMouseClicked
 
     private void memberButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_memberButtonMouseEntered
@@ -656,13 +636,7 @@ public class ProductPage extends javax.swing.JFrame {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         BuiltSystem.debugLog("Transaction Button Clicked");
-        String specificWindowName = new TransactionPage().getName();
-
-        for (Window window : Window.getWindows()) {
-            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
-                window.dispose(); 
-            }
-        } 
+        BuiltSystem.CloseWindow(new TransactionPage().getName());   
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseEntered
@@ -687,13 +661,7 @@ public class ProductPage extends javax.swing.JFrame {
 
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
         BuiltSystem.debugLog("Exit Button Clicked");
-        String specificWindowName = new LoginPage().getName();
-
-        for (Window window : Window.getWindows()) {
-            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
-                window.dispose(); 
-            }
-        } 
+        BuiltSystem.CloseWindow(new LoginPage().getName());   
     }//GEN-LAST:event_jButton7MouseClicked
 
     private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
@@ -726,8 +694,11 @@ public class ProductPage extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonMouseClicked
 
     private void InsertButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InsertButtonMouseClicked
-       new ProductRegistration();
-       RefreshData();
+        BuiltSystem.debugLog("Insert Button Clicked");
+        ProductRegistration productRegistration = new ProductRegistration();
+        productRegistration.setName("ProductRegistration");
+        BuiltSystem.OpenWindow(productRegistration, "ProductRegistration");
+        RefreshData();
     }//GEN-LAST:event_InsertButtonMouseClicked
 
     private void InsertButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InsertButtonMouseEntered
@@ -759,7 +730,7 @@ public class ProductPage extends javax.swing.JFrame {
     }//GEN-LAST:event_memberInputFieldKeyTyped
 
     private void updateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateButtonMouseClicked
-        // TODO add your handling code here:
+        BuiltSystem.debugLog("Update Button Clicked");
         InsertData();
     }//GEN-LAST:event_updateButtonMouseClicked
 
@@ -780,8 +751,10 @@ public class ProductPage extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void ShowSupplierButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowSupplierButtonMouseClicked
-        // TODO add your handling code here:
         new SupplierShowPage();
+        SupplierShowPage supplierShowPage = new SupplierShowPage();
+        supplierShowPage.setName("SupplierShowPage");
+        BuiltSystem.OpenWindow(supplierShowPage, "SupplierShowPage");
     }//GEN-LAST:event_ShowSupplierButtonMouseClicked
 
     private void ShowSupplierButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowSupplierButtonMouseEntered
@@ -820,8 +793,4 @@ public class ProductPage extends javax.swing.JFrame {
     private javax.swing.JLabel totalProduct;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
-
-//    private void initComponents() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
 }

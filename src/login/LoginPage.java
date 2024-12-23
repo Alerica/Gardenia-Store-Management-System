@@ -210,7 +210,7 @@ public class LoginPage extends javax.swing.JFrame {
         String password = textFieldPassword.getText();
         String role = CheckPasswordByDatabase(username,password);
         if (role.equals("admin")) {
-            new MainPage(username);
+            System.out.println("Debug " +  new MainPage(username).getClass());
             this.dispose();
         } else if (role.equals("staff")){
             new CashierPage();

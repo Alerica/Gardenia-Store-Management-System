@@ -3,7 +3,6 @@ package transaction;
 import gardeniastoremanagementsystem.BuiltSystem;
 import gardeniastoremanagementsystem.GardeniaStoreManagementSystem;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,30 +15,25 @@ import members.Members;
 public class Transactions {
     
     Connection connection;
-    
-    //transactions all
+    //Transaction Table
     public ArrayList<String> ids_trans = new ArrayList<>();
     public ArrayList<String> member_ids=new ArrayList<>();
     public ArrayList<String> transaction_totals=new ArrayList<>();
     public ArrayList<String> transaction_dates=new ArrayList<>();
-    
     //return quantity to stock
     public ArrayList<String> Jids_trans = new ArrayList<>();
     public ArrayList<String> ids_products=new ArrayList<>();
     public ArrayList<String> quantities=new ArrayList<>();
     public ArrayList<String> product_stocks=new ArrayList<>();
-    
     //detailtransaction table
     public ArrayList<String> Dids_trans = new ArrayList<>();
     public ArrayList<String> Dids_products = new ArrayList<>();
     public ArrayList<String> Dquantities = new ArrayList<>();
     public ArrayList<String> Dtotal_details = new ArrayList<>();
 
-    
     public Transactions() {
         connection = BuiltSystem.CreateConnection(connection);
         try {
-            //INSERT INTO transactions (transaction_id, member_id, transaction_total, date_transaction) VALUES
             Statement stmt = connection.createStatement();
             ResultSet result = stmt.executeQuery("SELECT * FROM transactions");
             while(result.next()) {
@@ -55,24 +49,8 @@ public class Transactions {
                 transaction_dates.add(date_transaction);
             }
             
-            //join detailtransactions, products, transactions
-            result = stmt.executeQuery("SELECT\n"
-                    + "	d.product_id,\n"
-                    + "	d.transaction_id,\n"
-                    + "	d.quantity,\n"
-                    + "	p.product_stock\n"
-                    + "\n"
-                    + "FROM detailtransactions d\n"
-                    + "\n"
-                    + "JOIN\n"
-                    + "	transactions t ON d.transaction_id = t.transaction_id\n"
-                    + "JOIN\n"
-                    + "	products p ON d.product_id = p.product_id\n"
-                    + "WHERE\n"
-                    + "	d.transaction_id = t.transaction_id AND \n"
-                    + "	d.product_id = p.product_id");
+            result = stmt.executeQuery("SELECT d.product_id, d.transaction_id, d.quantity, p.product_stock FROM detailtransactions d JOIN transactions t ON d.transaction_id = t.transaction_id JOIN products p ON d.product_id = p.product_id WHERE d.transaction_id = t.transaction_id AND d.product_id = p.product_id");
 
-            
             while(result.next()) {
                 
                 String Jid_trans = result.getString("transaction_id").strip();
@@ -116,7 +94,6 @@ public class Transactions {
             
             String transaction_date = BuiltSystem.getCurrentDateFormattedDatabase();
             Statement stmt = connection.createStatement();
-            // INSERT INTO transactions VALUES (id, member_id, total, date);   
             String query = "INSERT INTO transactions VALUES(" + id + "," + member_id + "," +total + ",'" +transaction_date + "');";
             stmt.execute(query);
             stmt.close();
@@ -138,7 +115,6 @@ public class Transactions {
             
             String transaction_date = BuiltSystem.getCurrentDateFormattedDatabase();
             Statement stmt = connection.createStatement();
-            // INSERT INTO detailtransactions VALUES (transaction_id, product_id, quantity, total_detail);  
             String query = "INSERT INTO detailtransactions VALUES(" + id + "," + product_id + "," +quantity + "," +total + ");";
             stmt.execute(query);
             stmt.close();

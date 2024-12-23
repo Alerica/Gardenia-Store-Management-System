@@ -1,19 +1,16 @@
 
 package members;
 
-import cashier.*;
 import members.*;
 import gardeniastoremanagementsystem.BuiltSystem;
 import gardeniastoremanagementsystem.GardeniaStoreManagementSystem;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
 
 
 public class Members {

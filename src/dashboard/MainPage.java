@@ -3,18 +3,14 @@ package dashboard;
 import gardeniastoremanagementsystem.BuiltSystem;
 import gardeniastoremanagementsystem.GardeniaStoreManagementSystem;
 import members.MemberPage;
-import javax.swing.*;
 import java.awt.Color;
 import java.awt.Window;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.sql.PreparedStatement;
 import login.LoginPage;
 import products.ProductPage;
 import transaction.TransactionPage;
@@ -29,47 +25,47 @@ public class MainPage extends javax.swing.JFrame {
         connection = BuiltSystem.CreateConnection(connection);
         initComponents();
         
-        this.setVisible(true);
-        this.setLocation(50,50);
-        this.setSize(1300,512);
-        this.setResizable(false);
-        
-        totalSummary.setText("Rp. " + GetSummary() );
-        incomeThisMonth.setText("Rp. " + GetSummaryThisMonth());
-        incomeLastMonth.setText("Rp. " + GetSummaryLastMonth());
+        StartingComponent();
         LastTransactionSummary();
     }
     
-    public void LastTransactionSummary() {
-        Transactions transactions = new Transactions();
-        String total1 = transactions.transaction_totals.get(transactions.transaction_totals.size() - 1);
-        String total2 = transactions.transaction_totals.get(transactions.transaction_totals.size() - 2);
-        String total3 = transactions.transaction_totals.get(transactions.transaction_totals.size() - 3);
-        transaction1.setText("Rp. " + total1 + " on " + transactions.transaction_dates.get(transactions.transaction_totals.size() - 1)   );
-        transaction2.setText("Rp. " + total2 + " on " + transactions.transaction_dates.get(transactions.transaction_totals.size() - 2)   );
-        transaction3.setText("Rp. " + total3 + " on " + transactions.transaction_dates.get(transactions.transaction_totals.size() - 3)   );
-    }
-    
-    // With staff/admin name
     public MainPage(String username) {
         connection = BuiltSystem.CreateConnection(connection);
         initComponents();
-        this.setVisible(true);
-        this.setLocation(50,50);
-        this.setSize(1300,512);
-        this.setResizable(false);
-        
+        StartingComponent();
         if(username.equals(" username")) {
             jLabel15.setText("Hello User!");
         } else {
             jLabel15.setText("Hello " + username + "!");
         }
         
+        LastTransactionSummary();
+    }
+    
+    private void StartingComponent() {
+        this.setVisible(true);
+        this.setLocation(50,50);
+        this.setSize(1300,512);
+        this.setResizable(false);
+        
         totalSummary.setText("Rp. " + GetSummary() );
         incomeThisMonth.setText("Rp. " + GetSummaryThisMonth());
         incomeLastMonth.setText("Rp. " + GetSummaryLastMonth());
-        LastTransactionSummary();
     }
+    
+    private void LastTransactionSummary() {
+        Transactions transactions = new Transactions();
+        String[] total = {null, null, null};
+        for(int i = 1; i < 4; i++) {
+            total[i-1] = transactions.transaction_totals.get(transactions.transaction_totals.size() - i);
+        }
+        
+        transaction1.setText("Rp. " + total[0] + " on " + transactions.transaction_dates.get(transactions.transaction_totals.size() - 1)   );
+        transaction2.setText("Rp. " + total[1] + " on " + transactions.transaction_dates.get(transactions.transaction_totals.size() - 2)   );
+        transaction3.setText("Rp. " + total[2] + " on " + transactions.transaction_dates.get(transactions.transaction_totals.size() - 3)   );
+    }
+    
+
     
     int GetSummary() {
         int total = 0;
@@ -137,11 +133,11 @@ public class MainPage extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        homeButton = new javax.swing.JButton();
+        transactionButton = new javax.swing.JButton();
+        memberButton = new javax.swing.JButton();
+        productButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -169,103 +165,103 @@ public class MainPage extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(34, 23, 122));
 
-        jButton2.setBackground(new java.awt.Color(34, 23, 122));
-        jButton2.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Home                ");
-        jButton2.setAlignmentY(0.0F);
-        jButton2.setBorder(null);
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        homeButton.setBackground(new java.awt.Color(34, 23, 122));
+        homeButton.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
+        homeButton.setForeground(new java.awt.Color(255, 255, 255));
+        homeButton.setText("Home                ");
+        homeButton.setAlignmentY(0.0F);
+        homeButton.setBorder(null);
+        homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                homeButtonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton2MouseEntered(evt);
+                homeButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton2MouseExited(evt);
+                homeButtonMouseExited(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        homeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                homeButtonActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(34, 23, 122));
-        jButton5.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Transaction    ");
-        jButton5.setAlignmentY(0.0F);
-        jButton5.setBorder(null);
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        transactionButton.setBackground(new java.awt.Color(34, 23, 122));
+        transactionButton.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
+        transactionButton.setForeground(new java.awt.Color(255, 255, 255));
+        transactionButton.setText("Transaction    ");
+        transactionButton.setAlignmentY(0.0F);
+        transactionButton.setBorder(null);
+        transactionButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton5MouseClicked(evt);
+                transactionButtonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton5MouseEntered(evt);
+                transactionButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton5MouseExited(evt);
+                transactionButtonMouseExited(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(34, 23, 122));
-        jButton4.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Member           ");
-        jButton4.setAlignmentY(0.0F);
-        jButton4.setBorder(null);
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+        memberButton.setBackground(new java.awt.Color(34, 23, 122));
+        memberButton.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
+        memberButton.setForeground(new java.awt.Color(255, 255, 255));
+        memberButton.setText("Member           ");
+        memberButton.setAlignmentY(0.0F);
+        memberButton.setBorder(null);
+        memberButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton4MouseClicked(evt);
+                memberButtonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton4MouseEntered(evt);
+                memberButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton4MouseExited(evt);
+                memberButtonMouseExited(evt);
             }
         });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        memberButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                memberButtonActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(34, 23, 122));
-        jButton6.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Product           ");
-        jButton6.setAlignmentY(0.0F);
-        jButton6.setBorder(null);
-        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+        productButton.setBackground(new java.awt.Color(34, 23, 122));
+        productButton.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
+        productButton.setForeground(new java.awt.Color(255, 255, 255));
+        productButton.setText("Product           ");
+        productButton.setAlignmentY(0.0F);
+        productButton.setBorder(null);
+        productButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton6MouseClicked(evt);
+                productButtonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton6MouseEntered(evt);
+                productButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton6MouseExited(evt);
+                productButtonMouseExited(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(34, 23, 122));
-        jButton7.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Exit                  ");
-        jButton7.setAlignmentY(0.0F);
-        jButton7.setBorder(null);
-        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+        exitButton.setBackground(new java.awt.Color(34, 23, 122));
+        exitButton.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(255, 255, 255));
+        exitButton.setText("Exit                  ");
+        exitButton.setAlignmentY(0.0F);
+        exitButton.setBorder(null);
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton7MouseClicked(evt);
+                exitButtonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton7MouseEntered(evt);
+                exitButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton7MouseExited(evt);
+                exitButtonMouseExited(evt);
             }
         });
 
@@ -478,11 +474,11 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(homeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                        .addComponent(memberButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(productButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(transactionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -499,15 +495,15 @@ public class MainPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(memberButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(productButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(transactionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -526,110 +522,83 @@ public class MainPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
-        jButton2.setBackground(new Color(96, 94, 161));
-    }//GEN-LAST:event_jButton2MouseEntered
+    private void homeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonMouseEntered
+        homeButton.setBackground(new Color(96, 94, 161));
+    }//GEN-LAST:event_homeButtonMouseEntered
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void homeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonMouseClicked
         BuiltSystem.debugLog("Home Button Clicked");
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_homeButtonMouseClicked
 
-    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
-        jButton2.setBackground(new Color(34, 23, 122));
-    }//GEN-LAST:event_jButton2MouseExited
+    private void homeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonMouseExited
+        homeButton.setBackground(new Color(34, 23, 122));
+    }//GEN-LAST:event_homeButtonMouseExited
 
-    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+    private void memberButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_memberButtonMouseClicked
         BuiltSystem.debugLog("Member Button Clicked");
-        String specificWindowName = new MemberPage().getName();
+        BuiltSystem.CloseWindow(new MemberPage().getName());
+    }//GEN-LAST:event_memberButtonMouseClicked
 
-        for (Window window : Window.getWindows()) {
-            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
-                window.dispose(); 
-            }
-        }   
-    }//GEN-LAST:event_jButton4MouseClicked
+    private void memberButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_memberButtonMouseEntered
+        memberButton.setBackground(new Color(96, 94, 161));
+    }//GEN-LAST:event_memberButtonMouseEntered
 
-    private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
-        jButton4.setBackground(new Color(96, 94, 161));
-    }//GEN-LAST:event_jButton4MouseEntered
+    private void memberButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_memberButtonMouseExited
+        memberButton.setBackground(new Color(34, 23, 122));
+    }//GEN-LAST:event_memberButtonMouseExited
 
-    private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited
-        jButton4.setBackground(new Color(34, 23, 122));
-    }//GEN-LAST:event_jButton4MouseExited
-
-    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+    private void transactionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionButtonMouseClicked
         BuiltSystem.debugLog("Transaction Button Clicked");
-        String specificWindowName = new TransactionPage().getName();
+        BuiltSystem.CloseWindow(new TransactionPage().getName());
+    }//GEN-LAST:event_transactionButtonMouseClicked
 
-        for (Window window : Window.getWindows()) {
-            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
-                window.dispose(); 
-            }
-        }   
-    }//GEN-LAST:event_jButton5MouseClicked
+    private void transactionButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionButtonMouseEntered
+        transactionButton.setBackground(new Color(96, 94, 161));
+    }//GEN-LAST:event_transactionButtonMouseEntered
 
-    private void jButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseEntered
-        jButton5.setBackground(new Color(96, 94, 161));
-    }//GEN-LAST:event_jButton5MouseEntered
+    private void transactionButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionButtonMouseExited
+        transactionButton.setBackground(new Color(34, 23, 122));
+    }//GEN-LAST:event_transactionButtonMouseExited
 
-    private void jButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseExited
-        jButton5.setBackground(new Color(34, 23, 122));
-    }//GEN-LAST:event_jButton5MouseExited
-
-    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+    private void productButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productButtonMouseClicked
         BuiltSystem.debugLog("Product Button Clicked");
-        String specificWindowName = new ProductPage().getName();
+        BuiltSystem.CloseWindow(new ProductPage().getName());         
+    }//GEN-LAST:event_productButtonMouseClicked
 
-        for (Window window : Window.getWindows()) {
-            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
-                window.dispose(); 
-            }
-        }       
-    }//GEN-LAST:event_jButton6MouseClicked
+    private void productButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productButtonMouseEntered
+        productButton.setBackground(new Color(96, 94, 161));
+    }//GEN-LAST:event_productButtonMouseEntered
 
-    private void jButton6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseEntered
-        jButton6.setBackground(new Color(96, 94, 161));
-    }//GEN-LAST:event_jButton6MouseEntered
+    private void productButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productButtonMouseExited
+       productButton.setBackground(new Color(34, 23, 122));
+    }//GEN-LAST:event_productButtonMouseExited
 
-    private void jButton6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseExited
-       jButton6.setBackground(new Color(34, 23, 122));
-    }//GEN-LAST:event_jButton6MouseExited
-
-    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
         BuiltSystem.debugLog("Exit Button Clicked");
-        String specificWindowName = new LoginPage().getName();
+        BuiltSystem.CloseWindow(new LoginPage().getName());   
+    }//GEN-LAST:event_exitButtonMouseClicked
 
-        for (Window window : Window.getWindows()) {
-            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
-                window.dispose(); 
-            }
-        }      
-    }//GEN-LAST:event_jButton7MouseClicked
+    private void exitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseEntered
+        exitButton.setBackground(new Color(96, 94, 161));
+    }//GEN-LAST:event_exitButtonMouseEntered
 
-    private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
-        jButton7.setBackground(new Color(96, 94, 161));
-    }//GEN-LAST:event_jButton7MouseEntered
+    private void exitButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseExited
+        exitButton.setBackground(new Color(34, 23, 122));
+    }//GEN-LAST:event_exitButtonMouseExited
 
-    private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited
-        jButton7.setBackground(new Color(34, 23, 122));
-    }//GEN-LAST:event_jButton7MouseExited
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_homeButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void memberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memberButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_memberButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton exitButton;
+    private javax.swing.JButton homeButton;
     private javax.swing.JLabel incomeLastMonth;
     private javax.swing.JLabel incomeThisMonth;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel15;
@@ -645,9 +614,12 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JButton memberButton;
+    private javax.swing.JButton productButton;
     private javax.swing.JLabel totalSummary;
     private javax.swing.JLabel transaction1;
     private javax.swing.JLabel transaction2;
     private javax.swing.JLabel transaction3;
+    private javax.swing.JButton transactionButton;
     // End of variables declaration//GEN-END:variables
 }

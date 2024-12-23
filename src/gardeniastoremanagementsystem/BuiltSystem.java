@@ -1,25 +1,46 @@
 package gardeniastoremanagementsystem;
 
+import dashboard.MainPage;
+import java.awt.Window;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
-import javax.swing.*;
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.sql.PreparedStatement;
 
 public class BuiltSystem {
     
+    public static boolean IsWindowOpened(String windowName) {
+        for (Window window : Window.getWindows()) {
+            if (window.isVisible() && windowName.equals(window.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public static void OpenWindow(Window window, String windowName) {
+        if (!IsWindowOpened(windowName)) {
+            window.setName(windowName); 
+            window.setVisible(true);   
+        } else {
+            System.out.println("Window is already open: " + windowName);
+        }
+    }
+
+    
+    public static void CloseWindow(String specificWindowName) {
+        for (Window window : Window.getWindows()) {
+            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
+                window.dispose(); 
+            }
+        } 
+    }
     
     public static int StringToInt(String text) {
         try {

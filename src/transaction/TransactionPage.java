@@ -7,16 +7,13 @@ import dashboard.MainPage;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Window;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -34,9 +31,7 @@ public class TransactionPage extends javax.swing.JFrame {
     public TransactionPage() {
         connection = BuiltSystem.CreateConnection(connection);
         initComponents();
-        
         StartingComponent();
-        
         RefreshData();
     }
     
@@ -130,7 +125,9 @@ public class TransactionPage extends javax.swing.JFrame {
             String id = String.valueOf(transactions.ids_trans.get(i));
             if (id.equals(input)) {
                 valid = true;
-                new TransactionDeleteConfirmation(transactions.ids_trans.get(i));
+                TransactionDeleteConfirmation transactionDeleteConfirmation = new TransactionDeleteConfirmation(transactions.ids_trans.get(i));
+                transactionDeleteConfirmation.setName("TransactionDeleteConfirmation");
+                BuiltSystem.OpenWindow(transactionDeleteConfirmation, "TransactionDeleteConfirmation");
                 id = String.valueOf(transactions.ids_trans.get(i));
                 DeleteProductByTransID(input);
                 BuiltSystem.debugLog("Delete from d.product success");
@@ -140,19 +137,19 @@ public class TransactionPage extends javax.swing.JFrame {
         if(!valid) {
             deleteWarning.setText("Delete must use Transaction ID!!");
         }
-//        SearchData();
         BuiltSystem.debugLog("DeleteData() Completed");
     }
     
     private void DeleteDataByTable() {
         BuiltSystem.debugLog("Running DeleteDataByTable()");
-        Transactions transactions = new Transactions();
-        new TransactionDeleteConfirmation(String.valueOf(trans_id));
+        
+        TransactionDeleteConfirmation transactionDeleteConfirmation = new TransactionDeleteConfirmation(String.valueOf(trans_id));
+        transactionDeleteConfirmation.setName("TransactionDeleteConfirmation");
+        BuiltSystem.OpenWindow(transactionDeleteConfirmation, "TransactionDeleteConfirmation");
+        
         DeleteProductByTransID(String.valueOf(trans_id));
         BuiltSystem.debugLog("Delete from d.product success");
-//        SearchData();
         BuiltSystem.debugLog("DeleteData() Completed");
-        
     }
     
     private void DeleteProductByTransID(String input){
@@ -207,38 +204,16 @@ public class TransactionPage extends javax.swing.JFrame {
         }
     }
     
-    int GetSummary() {
-        BuiltSystem.debugLog("Running GetSummary()");
-        int total = 0;
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM Transaction");
-            while(result.next()) {
-                String date = result.getString("date_transaction");
-                String value = result.getString("transaction_total");
-                String currentMonth = date.substring( 5, 7);
-                if(currentMonth.equals(Integer.toString(BuiltSystem.getCurrentMonthAsNumber()) )) {
-                    System.out.println("check");
-                    total += (int) Double.parseDouble(value);
-                }
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        BuiltSystem.debugLog("GetSummary() Completed");
-        return total;
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        transactionButton = new javax.swing.JButton();
         memberButton = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        productButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -283,21 +258,21 @@ public class TransactionPage extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(34, 23, 122));
-        jButton5.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Transaction    ");
-        jButton5.setAlignmentY(0.0F);
-        jButton5.setBorder(null);
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        transactionButton.setBackground(new java.awt.Color(34, 23, 122));
+        transactionButton.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
+        transactionButton.setForeground(new java.awt.Color(255, 255, 255));
+        transactionButton.setText("Transaction    ");
+        transactionButton.setAlignmentY(0.0F);
+        transactionButton.setBorder(null);
+        transactionButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton5MouseClicked(evt);
+                transactionButtonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton5MouseEntered(evt);
+                transactionButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton5MouseExited(evt);
+                transactionButtonMouseExited(evt);
             }
         });
 
@@ -324,39 +299,39 @@ public class TransactionPage extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(34, 23, 122));
-        jButton6.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Product           ");
-        jButton6.setAlignmentY(0.0F);
-        jButton6.setBorder(null);
-        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+        productButton.setBackground(new java.awt.Color(34, 23, 122));
+        productButton.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
+        productButton.setForeground(new java.awt.Color(255, 255, 255));
+        productButton.setText("Product           ");
+        productButton.setAlignmentY(0.0F);
+        productButton.setBorder(null);
+        productButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton6MouseClicked(evt);
+                productButtonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton6MouseEntered(evt);
+                productButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton6MouseExited(evt);
+                productButtonMouseExited(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(34, 23, 122));
-        jButton7.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Exit                  ");
-        jButton7.setAlignmentY(0.0F);
-        jButton7.setBorder(null);
-        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+        exitButton.setBackground(new java.awt.Color(34, 23, 122));
+        exitButton.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 1, 14)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(255, 255, 255));
+        exitButton.setText("Exit                  ");
+        exitButton.setAlignmentY(0.0F);
+        exitButton.setBorder(null);
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton7MouseClicked(evt);
+                exitButtonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton7MouseEntered(evt);
+                exitButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton7MouseExited(evt);
+                exitButtonMouseExited(evt);
             }
         });
 
@@ -575,9 +550,9 @@ public class TransactionPage extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(homeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
                         .addComponent(memberButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(productButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(transactionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -598,11 +573,11 @@ public class TransactionPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(memberButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(productButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(transactionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -627,14 +602,7 @@ public class TransactionPage extends javax.swing.JFrame {
 
     private void homeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonMouseClicked
         BuiltSystem.debugLog("Home Button Clicked");
-        Timer timer = new Timer(70, e -> {
-            new MainPage();
-            
-            SwingUtilities.invokeLater(() -> dispose());
-        });
-        
-        timer.setRepeats(false); 
-        timer.start();
+        BuiltSystem.CloseWindow(new MainPage().getName());   
     }//GEN-LAST:event_homeButtonMouseClicked
 
     private void homeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonMouseExited
@@ -643,15 +611,7 @@ public class TransactionPage extends javax.swing.JFrame {
 
     private void memberButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_memberButtonMouseClicked
         BuiltSystem.debugLog("Member Button Clicked");
-        Timer timer = new Timer(70, e -> {
-            new MemberPage();
-            
-            SwingUtilities.invokeLater(() -> dispose());
-        });
-        
-        timer.setRepeats(false); 
-        timer.start();
-        
+        BuiltSystem.CloseWindow(new MemberPage().getName());   
     }//GEN-LAST:event_memberButtonMouseClicked
 
     private void memberButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_memberButtonMouseEntered
@@ -662,62 +622,44 @@ public class TransactionPage extends javax.swing.JFrame {
         memberButton.setBackground(new Color(34, 23, 122));
     }//GEN-LAST:event_memberButtonMouseExited
 
-    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+    private void transactionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionButtonMouseClicked
         BuiltSystem.debugLog("Transaction Button Clicked");
-        Timer timer = new Timer(70, e -> {
-            new TransactionPage();
-            
-            SwingUtilities.invokeLater(() -> dispose());
-        });
-        timer.setRepeats(false); 
-        timer.start();
-    }//GEN-LAST:event_jButton5MouseClicked
+        BuiltSystem.CloseWindow(new TransactionPage().getName());   
+    }//GEN-LAST:event_transactionButtonMouseClicked
 
-    private void jButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseEntered
-        jButton5.setBackground(new Color(96, 94, 161));
-    }//GEN-LAST:event_jButton5MouseEntered
+    private void transactionButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionButtonMouseEntered
+        transactionButton.setBackground(new Color(96, 94, 161));
+    }//GEN-LAST:event_transactionButtonMouseEntered
 
-    private void jButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseExited
-        jButton5.setBackground(new Color(34, 23, 122));
-    }//GEN-LAST:event_jButton5MouseExited
+    private void transactionButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionButtonMouseExited
+        transactionButton.setBackground(new Color(34, 23, 122));
+    }//GEN-LAST:event_transactionButtonMouseExited
 
-    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+    private void productButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productButtonMouseClicked
         BuiltSystem.debugLog("Product Button Clicked");
-        String specificWindowName = new ProductPage().getName();
+        BuiltSystem.CloseWindow(new ProductPage().getName());   
+    }//GEN-LAST:event_productButtonMouseClicked
 
-        for (Window window : Window.getWindows()) {
-            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
-                window.dispose(); 
-            }
-        }   
-    }//GEN-LAST:event_jButton6MouseClicked
+    private void productButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productButtonMouseEntered
+        productButton.setBackground(new Color(96, 94, 161));
+    }//GEN-LAST:event_productButtonMouseEntered
 
-    private void jButton6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseEntered
-        jButton6.setBackground(new Color(96, 94, 161));
-    }//GEN-LAST:event_jButton6MouseEntered
+    private void productButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productButtonMouseExited
+       productButton.setBackground(new Color(34, 23, 122));
+    }//GEN-LAST:event_productButtonMouseExited
 
-    private void jButton6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseExited
-       jButton6.setBackground(new Color(34, 23, 122));
-    }//GEN-LAST:event_jButton6MouseExited
-
-    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
         BuiltSystem.debugLog("Exit Button Clicked");
-        String specificWindowName = new LoginPage().getName();
+        BuiltSystem.CloseWindow(new LoginPage().getName());    
+    }//GEN-LAST:event_exitButtonMouseClicked
 
-        for (Window window : Window.getWindows()) {
-            if (window.isVisible() && !specificWindowName.equals(window.getName())) {
-                window.dispose(); 
-            }
-        }  
-    }//GEN-LAST:event_jButton7MouseClicked
+    private void exitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseEntered
+        exitButton.setBackground(new Color(96, 94, 161));
+    }//GEN-LAST:event_exitButtonMouseEntered
 
-    private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
-        jButton7.setBackground(new Color(96, 94, 161));
-    }//GEN-LAST:event_jButton7MouseEntered
-
-    private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited
-        jButton7.setBackground(new Color(34, 23, 122));
-    }//GEN-LAST:event_jButton7MouseExited
+    private void exitButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseExited
+        exitButton.setBackground(new Color(34, 23, 122));
+    }//GEN-LAST:event_exitButtonMouseExited
 
     private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
         // TODO add your handling code here:
@@ -766,16 +708,17 @@ public class TransactionPage extends javax.swing.JFrame {
     }//GEN-LAST:event_TransInputFieldMouseEntered
 
     private void showButtonTransMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showButtonTransMouseClicked
-        new TransactionShowDetailPage(trans_id, total_recap);  
+        BuiltSystem.debugLog("Show Button Clicked");
+        TransactionShowDetailPage transactionShowDetailPage = new TransactionShowDetailPage(trans_id, total_recap);
+        transactionShowDetailPage.setName("TransactionShowDetailPage");
+        BuiltSystem.OpenWindow(transactionShowDetailPage, "TransactionShowDetailPage");
     }//GEN-LAST:event_showButtonTransMouseClicked
 
     private void showButtonTransMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showButtonTransMouseEntered
-        // TODO add your handling code here:
         showButtonTrans.setBackground(new Color(34, 23, 122));
     }//GEN-LAST:event_showButtonTransMouseEntered
 
     private void showButtonTransMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showButtonTransMouseExited
-        // TODO add your handling code here:
         showButtonTrans.setBackground(new Color(96, 94, 161));
     }//GEN-LAST:event_showButtonTransMouseExited
 
@@ -784,10 +727,9 @@ public class TransactionPage extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonTransActionPerformed
 
     private void tableTransMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTransMouseClicked
-        //disini masukkan select
         int selectedRow=tableTrans.getSelectedRow();
         if(selectedRow != -1){
-            trans_id=Integer.parseInt(tableTrans.getValueAt(selectedRow, 0).toString());
+            trans_id= Integer.parseInt(tableTrans.getValueAt(selectedRow, 0).toString());
             total_recap = Integer.parseInt(tableTrans.getValueAt(selectedRow, 2).toString().substring(4));
         }
         else{
@@ -808,61 +750,12 @@ public class TransactionPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tableTransMouseClicked
 
-    public static void Start() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TransactionPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TransactionPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TransactionPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TransactionPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TransactionPage mainPage = new TransactionPage();
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TransInputField;
     private javax.swing.JButton deleteButtonTrans;
     private javax.swing.JLabel deleteWarning;
+    private javax.swing.JButton exitButton;
     private javax.swing.JButton homeButton;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -873,9 +766,11 @@ public class TransactionPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton memberButton;
+    private javax.swing.JButton productButton;
     private javax.swing.JButton showButtonTrans;
     private javax.swing.JTable tableTrans;
     private javax.swing.JLabel totalMember;
+    private javax.swing.JButton transactionButton;
     // End of variables declaration//GEN-END:variables
 
 }
