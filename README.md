@@ -6,7 +6,7 @@ There`s also cashier page to make transaction
 ## 1. Create gardenia Database
 Make sure you already create the gardenia database, you can do this by importing **gardenia.sql**
 
-## 2.Connecto To Database 
+## 2.Connect to Gardenia Database 
 Make sure you adjust the username and password of your database
 By default your database username should be "root" and your password should be ""
 ```java
@@ -35,7 +35,7 @@ the default password is "4321" and username is "admin"
 If you want to go to the admin page
 the default password is "1234" and username is "user"
 
-### Common issue you may found
+## Common issue you may found
 #### **Can't login : **
 Make sure the username and password have no trailing space
 #### **Can't connect to database : **
