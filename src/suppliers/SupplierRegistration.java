@@ -2,36 +2,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package products;
+package suppliers;
 
+import products.*;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import products.*;
-import suppliers.Suppliers;
+import Suppliers.*;
 
 /**
  *
  * @author Xxark
  */
-public class ProductRegistration extends javax.swing.JFrame {
+public class SupplierRegistration extends javax.swing.JFrame {
     
     /**
      * Creates new form memberRegistration
      */
-    public ProductRegistration() {
-        Suppliers suppliers = new Suppliers();
+    public SupplierRegistration() {
         initComponents();
         this.setVisible(true);
         this.setLocation(320,150);
         this.setSize(420, 610);
         this.setResizable(false);
         this.warning.setVisible(false);
-        int suppliersCount = suppliers.supplier_ids.size();
-        String name = "";
-        for(int i = 0; i < suppliersCount; i++){
-            name = suppliers.supplier_names.get(i);
-            this.SupplierList.addItem(name);
-        }
         
     }
 
@@ -47,53 +41,24 @@ public class ProductRegistration extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        nameField = new javax.swing.JTextField();
-        StockField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         finalConfirmation = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
-        PriceField = new javax.swing.JTextField();
-        CategoryBox = new javax.swing.JComboBox<>();
         warning = new javax.swing.JLabel();
-        SupplierList = new javax.swing.JComboBox<>();
+        supplierField = new javax.swing.JTextField();
+        supplierPhoneField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(420, 610));
 
         jPanel1.setBackground(new java.awt.Color(96, 94, 161));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Product Registration");
+        jLabel1.setText("Supplier Registration");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("___________________________________________");
-
-        nameField.setBackground(new java.awt.Color(255, 255, 255));
-        nameField.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        nameField.setText("Product Name");
-        nameField.setBorder(null);
-        nameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameFieldActionPerformed(evt);
-            }
-        });
-
-        StockField.setBackground(new java.awt.Color(255, 255, 255));
-        StockField.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        StockField.setText("Stock");
-        StockField.setBorder(null);
-        StockField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StockFieldActionPerformed(evt);
-            }
-        });
-        StockField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                StockFieldKeyPressed(evt);
-            }
-        });
 
         jButton1.setBackground(new java.awt.Color(168, 205, 137));
         jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -134,27 +99,28 @@ public class ProductRegistration extends javax.swing.JFrame {
             }
         });
 
-        PriceField.setBackground(new java.awt.Color(255, 255, 255));
-        PriceField.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        PriceField.setText("Price");
-        PriceField.setBorder(null);
-        PriceField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PriceFieldActionPerformed(evt);
-            }
-        });
-
-        CategoryBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "bahan pokok", "minuman", "alat", "pewarna makanan", "kue", "kue kering", "dekorasi", "kemasan", "bahan tambahan", "kue basah", "Roti" }));
-        CategoryBox.setSelectedItem(CategoryBox);
-        CategoryBox.setToolTipText("");
-        CategoryBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CategoryBoxActionPerformed(evt);
-            }
-        });
-
         warning.setForeground(new java.awt.Color(255, 0, 0));
         warning.setText("Tidak Boleh Ada Kolom yang Kosong !!!");
+
+        supplierField.setBackground(new java.awt.Color(255, 255, 255));
+        supplierField.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        supplierField.setText("Supplier Name");
+        supplierField.setBorder(null);
+        supplierField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supplierFieldActionPerformed(evt);
+            }
+        });
+
+        supplierPhoneField.setBackground(new java.awt.Color(255, 255, 255));
+        supplierPhoneField.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        supplierPhoneField.setText("Supplier Phone Number");
+        supplierPhoneField.setBorder(null);
+        supplierPhoneField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supplierPhoneFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,9 +137,6 @@ public class ProductRegistration extends javax.swing.JFrame {
                         .addGap(86, 86, 86)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(finalConfirmation)
-                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(StockField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
                                 .addComponent(warning))))
@@ -181,12 +144,12 @@ public class ProductRegistration extends javax.swing.JFrame {
                         .addGap(79, 79, 79)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(CategoryBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SupplierList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(67, 67, 67)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(supplierPhoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(supplierField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -196,16 +159,10 @@ public class ProductRegistration extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(StockField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(supplierField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(CategoryBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(SupplierList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109)
+                .addComponent(supplierPhoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(234, 234, 234)
                 .addComponent(warning)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(finalConfirmation, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,31 +188,32 @@ public class ProductRegistration extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        Suppliers suppliers = new Suppliers();
+        String name = supplierField.getText();
+        String phone = supplierPhoneField.getText();
+        int id = 0;
+        boolean doubleData = false;
         
-        String name = nameField.getText();
-        String category_name = (String) CategoryBox.getSelectedItem();
-        String suppName = (String) SupplierList.getSelectedItem();
-        
-        String stock = StockField.getText();
-        String price = PriceField.getText();
-        
-        if(Integer.parseInt(stock) <= 0 || Integer.parseInt(price) <= 0) {
+        if(Integer.parseInt(phone) <= 0) {
+            this.warning.setText("Phone number must be number");
+            this.warning.setVisible(true);
             return;
         }
-        
-        boolean confirmation = finalConfirmation.isSelected();
-        Products products = new Products();
-        if(confirmation && !name.trim().isEmpty() && !category_name.trim().isEmpty() && !stock.trim().isEmpty() && !price.trim().isEmpty() && Integer.parseInt(stock)>=0 && Integer.parseInt(price) >= 0) {
-            
-            for(int i = 0; i < products.product_ids.size(); i++){
-                String namex = products.product_names.get(i);
-                if(namex.equalsIgnoreCase(name)){
-                    //Double data update confirmation
-                    new ProductDoubleDataUpdateConfirmation(name, products.product_ids.get(i), stock, price);
-                    this.dispose();
-                }
+        for(int i = 0; i < suppliers.supplier_ids.size(); i++){
+            String phonex = suppliers.supplier_phones.get(i);
+            if(phonex.equalsIgnoreCase(phone)){
+                //Double data update confirmation
+                this.warning.setText("Supplier dengan nama"+ suppliers.supplier_names.get(i) +" sudah ada");
+                this.warning.setVisible(true);
+                doubleData = true;
+                id = i + 1;
             }
-            products.InsertProduct(name, suppName, category_name, stock, price);
+            id = Integer.parseInt(suppliers.supplier_ids.get(i)) + 1;
+        }
+        boolean confirmation = finalConfirmation.isSelected();
+        if(confirmation && !name.trim().isEmpty() && Integer.parseInt(phone)>=0 && !doubleData) {
+           
+            suppliers.InsertData(String.valueOf(id), supplierField.getText(), supplierPhoneField.getText());
             this.dispose();
         }
         else{
@@ -275,42 +233,17 @@ public class ProductRegistration extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2MouseClicked
 
-    private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameFieldActionPerformed
-
-    private void StockFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StockFieldActionPerformed
-        // TODO add your handling code here:
-        String input = StockField.getText();
-
-        // Validasi apakah teks hanya angka
-        if (!input.matches("\\d+")) { // Regex untuk memeriksa angka
-            // Tampilkan pesan kesalahan
-            JOptionPane.showMessageDialog(this, "Hanya boleh angka!", "Input Invalid", JOptionPane.ERROR_MESSAGE);
-
-            // Kosongkan teks di StockField
-            StockField.setText("");
-        } else {
-            // Jika valid, lakukan operasi lainnya
-            System.out.println("Input valid: " + input);
-        }
-    }//GEN-LAST:event_StockFieldActionPerformed
-
-    private void CategoryBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoryBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CategoryBoxActionPerformed
-
-    private void PriceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PriceFieldActionPerformed
-
-    private void StockFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_StockFieldKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_StockFieldKeyPressed
-
     private void finalConfirmationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalConfirmationActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_finalConfirmationActionPerformed
+
+    private void supplierFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplierFieldActionPerformed
+
+    private void supplierPhoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierPhoneFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplierPhoneFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -329,14 +262,18 @@ public class ProductRegistration extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProductRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SupplierRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProductRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SupplierRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProductRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SupplierRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProductRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SupplierRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -345,23 +282,20 @@ public class ProductRegistration extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProductRegistration().setVisible(true);
+                new SupplierRegistration().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CategoryBox;
-    private javax.swing.JTextField PriceField;
-    private javax.swing.JTextField StockField;
-    private javax.swing.JComboBox<String> SupplierList;
     private javax.swing.JCheckBox finalConfirmation;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nameField;
+    private javax.swing.JTextField supplierField;
+    private javax.swing.JTextField supplierPhoneField;
     private javax.swing.JLabel warning;
     // End of variables declaration//GEN-END:variables
 }

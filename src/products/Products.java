@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
+import suppliers.Suppliers;
 
 
 public class Products {
@@ -72,8 +73,17 @@ public class Products {
         
     }   
     
-    public void InsertProduct(String name, String category_name, String stock, String price) {
+    public void InsertProduct(String name, String suppName, String category_name, String stock, String price) {
         try {
+            Suppliers suppliers = new Suppliers();
+            String suppID = null, suppName_temp;
+            for (int i = 0; i < suppliers.supplier_ids.size(); i++) {
+                suppName_temp = suppliers.supplier_names.get(i);
+                if(suppName_temp.equals(suppName)){
+                    suppID = suppliers.supplier_ids.get(i);
+                }
+                
+            }
             int i;
             String category_id = null, category_name_temp;
             for(int j = 0; j<category_list_ids.size(); j++){
@@ -82,7 +92,7 @@ public class Products {
                     category_id = category_list_ids.get(j);
                 }
             }
-            String product_last_update = BuiltSystem.getCurrentDateFormattedDatabase();
+            String product_last_update = BuiltSystem.getCurrentDateFormattedProduct();
             Statement stmt = connection.createStatement();
             //Memeriksa apakah product sudah ada di tabel apa belum
             boolean doubleData = false;
@@ -101,7 +111,7 @@ public class Products {
                 id++;
                 System.out.println("id : " + id);
                 
-                String query = "INSERT INTO products VALUES('"+ id + "','" + category_id + "','" + name + "','" + stock + "','" + product_last_update + "','" + price + "');";
+                String query = "INSERT INTO products VALUES('"+ id + "','" + category_id + "',"+ suppID +",'" + name + "','" + stock + "','" + product_last_update + "','" + price + "');";
                 stmt.execute(query);
                 product_ids.add("" + id);
                 category_ids.add(category_id);
