@@ -20,6 +20,7 @@ import java.sql.PreparedStatement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import login.LoginPage;
+import suppliers.SupplierShowPage;
 import transaction.TransactionPage;
 
 
@@ -199,6 +200,7 @@ public class ProductPage extends javax.swing.JFrame {
         InsertButton = new javax.swing.JButton();
         deleteWarning = new javax.swing.JLabel();
         updateButton = new javax.swing.JButton();
+        ShowSupplierButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -471,6 +473,28 @@ public class ProductPage extends javax.swing.JFrame {
             }
         });
 
+        ShowSupplierButton.setBackground(new java.awt.Color(96, 94, 161));
+        ShowSupplierButton.setFont(new java.awt.Font("UD Digi Kyokasho NK-R", 0, 14)); // NOI18N
+        ShowSupplierButton.setForeground(new java.awt.Color(255, 255, 255));
+        ShowSupplierButton.setText("Supplier List");
+        ShowSupplierButton.setBorder(null);
+        ShowSupplierButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ShowSupplierButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ShowSupplierButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ShowSupplierButtonMouseExited(evt);
+            }
+        });
+        ShowSupplierButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowSupplierButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -488,7 +512,8 @@ public class ProductPage extends javax.swing.JFrame {
                                     .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(memberInputField, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                                     .addComponent(InsertButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ShowSupplierButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                                 .addComponent(deleteWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -522,6 +547,8 @@ public class ProductPage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(memberInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ShowSupplierButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(InsertButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -752,8 +779,26 @@ public class ProductPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private void ShowSupplierButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowSupplierButtonMouseClicked
+        // TODO add your handling code here:
+        new SupplierShowPage();
+    }//GEN-LAST:event_ShowSupplierButtonMouseClicked
+
+    private void ShowSupplierButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowSupplierButtonMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ShowSupplierButtonMouseEntered
+
+    private void ShowSupplierButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowSupplierButtonMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ShowSupplierButtonMouseExited
+
+    private void ShowSupplierButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowSupplierButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ShowSupplierButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton InsertButton;
+    private javax.swing.JButton ShowSupplierButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel deleteWarning;
     private javax.swing.JButton homeButton;
