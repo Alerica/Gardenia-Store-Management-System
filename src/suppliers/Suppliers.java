@@ -15,7 +15,7 @@ public class Suppliers {
     Connection connection;
 
     public Suppliers() {
-        CreateConnection();
+        connection = BuiltSystem.CreateConnection(connection);
     }
     
     public void InsertData(String productID, String name, String phone) {
@@ -28,22 +28,6 @@ public class Suppliers {
             System.out.println("HAHHAH");
         } catch (SQLException ex) {
             Logger.getLogger(Members.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    void CreateConnection(){
-        String url = "jdbc:mysql://localhost:3306/gardenia";
-        String username = "root"; // Default XAMPP MySQL username
-        String password = "4321";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(url, username, password);
-            System.out.println(BuiltSystem.getCurrentTime() + " Connection Success"); 
-            
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

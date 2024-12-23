@@ -18,20 +18,20 @@ public class Products {
     
     Connection connection;
     //Products Table
-    ArrayList<String> product_ids = new ArrayList<>();
-    ArrayList<String> category_ids = new ArrayList<>();
-    ArrayList<String> product_names = new ArrayList<>();            
-    ArrayList<String> product_stocks = new ArrayList<>();
-    ArrayList<String> product_last_updates = new ArrayList<>();
-    ArrayList<String> product_prices = new ArrayList<>();
-    ArrayList<String> category_names = new ArrayList<>();
+    public ArrayList<String> product_ids = new ArrayList<>();
+    public ArrayList<String> category_ids = new ArrayList<>();
+    public ArrayList<String> product_names = new ArrayList<>();            
+    public ArrayList<String> product_stocks = new ArrayList<>();
+    public ArrayList<String> product_last_updates = new ArrayList<>();
+    public ArrayList<String> product_prices = new ArrayList<>();
+    public ArrayList<String> category_names = new ArrayList<>();
     
     //Category List
-    ArrayList<String> category_list_ids = new ArrayList<>();
-    ArrayList<String> category_list_names = new ArrayList<>();
+    public ArrayList<String> category_list_ids = new ArrayList<>();
+    public ArrayList<String> category_list_names = new ArrayList<>();
     
-    Products() {
-        CreateConnection();
+    public Products() {
+        connection = BuiltSystem.CreateConnection(connection);
         try {
             Statement stmt = connection.createStatement();
             ResultSet result = stmt.executeQuery(
@@ -72,7 +72,7 @@ public class Products {
         
     }   
     
-    void InsertProduct(String name, String category_name, String stock, String price) {
+    public void InsertProduct(String name, String category_name, String stock, String price) {
         try {
             int i;
             String category_id = null, category_name_temp;
@@ -119,7 +119,7 @@ public class Products {
         }
     }
     
-    void UpdateData(String name, String product_id, String stock, String price){
+    public void UpdateData(String name, String product_id, String stock, String price){
         try {
             int i;
             String product_last_update = BuiltSystem.getCurrentDateFormattedProduct();
@@ -158,7 +158,7 @@ public class Products {
     
     }
     
-    void DeleteData(String name, String product_id, String stock, String price){
+    public void DeleteData(String name, String product_id, String stock, String price){
         try {
             int i = product_ids.size() - 1;
             String product_last_update = BuiltSystem.getCurrentDateFormattedProduct();
@@ -188,7 +188,7 @@ public class Products {
     
     }
     
-    void RemoveStock(String product_id, String stock){
+    public void RemoveStock(String product_id, String stock){
         try {
             int i = -1;
             for(i = 0; i < product_ids.size(); i++) { 
@@ -219,22 +219,6 @@ public class Products {
             Logger.getLogger(Products.class.getName()).log(Level.SEVERE, null, ex);
         }
     
-    }
-    
-    void CreateConnection(){
-        String url = "jdbc:mysql://localhost:3306/gardenia";
-        String username = "root"; // Default XAMPP MySQL username
-        String password = "4321";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(url, username, password);
-            System.out.println(BuiltSystem.getCurrentTime() + " Connection Success"); 
-            
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
 }

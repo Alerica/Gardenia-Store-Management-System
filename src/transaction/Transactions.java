@@ -1,6 +1,5 @@
 package transaction;
 
-import cashier.*;
 import gardeniastoremanagementsystem.BuiltSystem;
 import gardeniastoremanagementsystem.GardeniaStoreManagementSystem;
 import java.sql.Connection;
@@ -11,8 +10,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
-import javax.swing.table.DefaultTableModel;
+import members.Members;
 
 
 public class Transactions {
@@ -20,26 +18,26 @@ public class Transactions {
     Connection connection;
     
     //transactions all
-    ArrayList<String> ids_trans = new ArrayList<>();
-    ArrayList<String> member_ids=new ArrayList<>();
-    ArrayList<String> transaction_totals=new ArrayList<>();
-    ArrayList<String> transaction_dates=new ArrayList<>();
+    public ArrayList<String> ids_trans = new ArrayList<>();
+    public ArrayList<String> member_ids=new ArrayList<>();
+    public ArrayList<String> transaction_totals=new ArrayList<>();
+    public ArrayList<String> transaction_dates=new ArrayList<>();
     
     //return quantity to stock
-    ArrayList<String> Jids_trans = new ArrayList<>();
-    ArrayList<String> ids_products=new ArrayList<>();
-    ArrayList<String> quantities=new ArrayList<>();
-    ArrayList<String> product_stocks=new ArrayList<>();
+    public ArrayList<String> Jids_trans = new ArrayList<>();
+    public ArrayList<String> ids_products=new ArrayList<>();
+    public ArrayList<String> quantities=new ArrayList<>();
+    public ArrayList<String> product_stocks=new ArrayList<>();
     
     //detailtransaction table
-    ArrayList<String> Dids_trans = new ArrayList<>();
-    ArrayList<String> Dids_products = new ArrayList<>();
-    ArrayList<String> Dquantities = new ArrayList<>();
-    ArrayList<String> Dtotal_details = new ArrayList<>();
+    public ArrayList<String> Dids_trans = new ArrayList<>();
+    public ArrayList<String> Dids_products = new ArrayList<>();
+    public ArrayList<String> Dquantities = new ArrayList<>();
+    public ArrayList<String> Dtotal_details = new ArrayList<>();
 
     
-    Transactions() {
-        CreateConnection();
+    public Transactions() {
+        connection = BuiltSystem.CreateConnection(connection);
         try {
             //INSERT INTO transactions (transaction_id, member_id, transaction_total, date_transaction) VALUES
             Statement stmt = connection.createStatement();
@@ -111,7 +109,7 @@ public class Transactions {
         
     }   
     
-    void InsertDataTransaction(String member_id, String total) {
+    public void InsertDataTransaction(String member_id, String total) {
         try {
             int id = Integer.parseInt(ids_trans.get(ids_trans.size()- 1));
             id++;
@@ -134,7 +132,7 @@ public class Transactions {
         }
     }
     
-    void InsertDataDetailTransaction(String product_id, String quantity, String total) {
+    public void InsertDataDetailTransaction(String product_id, String quantity, String total) {
         try {
             int id = Integer.parseInt(ids_trans.get(ids_trans.size()- 1));
             
@@ -151,7 +149,7 @@ public class Transactions {
         }
     }
     
-    void DeleteData(String id_trans){
+    public void DeleteData(String id_trans){
         try {
             Statement stmt = connection.createStatement();
             stmt.execute("DELETE FROM detailtransactions WHERE transaction_id = '" + id_trans + "';");
@@ -175,21 +173,4 @@ public class Transactions {
         }
         BuiltSystem.debugLog("DeletedData() Completed");
     }
-    
-    void CreateConnection(){
-        String url = "jdbc:mysql://localhost:3306/gardenia";
-        String username = "root"; // Default XAMPP MySQL username
-        String password = "4321";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(url, username, password);
-            System.out.println(BuiltSystem.getCurrentTime() + " Connection Success"); 
-            
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
 }

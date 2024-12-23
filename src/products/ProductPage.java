@@ -30,6 +30,12 @@ public class ProductPage extends javax.swing.JFrame {
     public ProductPage() {
         connection = BuiltSystem.CreateConnection(connection);
         initComponents();
+        StartingComponent();
+        
+        RefreshData();
+    }
+    
+    private void StartingComponent() {
         this.setVisible(true);
         this.setLocation(50,50);
         this.setSize(1300,512);
@@ -44,8 +50,6 @@ public class ProductPage extends javax.swing.JFrame {
         
         Products products = new Products();
         totalProduct.setText("Total Products : " + products.product_ids.size());
-        
-        RefreshData();
     }
     
     private void RefreshData() {

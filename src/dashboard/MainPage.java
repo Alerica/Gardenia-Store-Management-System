@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import login.LoginPage;
 import products.ProductPage;
 import transaction.TransactionPage;
+import transaction.Transactions;
 
 
 public class MainPage extends javax.swing.JFrame {
@@ -36,6 +37,17 @@ public class MainPage extends javax.swing.JFrame {
         totalSummary.setText("Rp. " + GetSummary() );
         incomeThisMonth.setText("Rp. " + GetSummaryThisMonth());
         incomeLastMonth.setText("Rp. " + GetSummaryLastMonth());
+        LastTransactionSummary();
+    }
+    
+    public void LastTransactionSummary() {
+        Transactions transactions = new Transactions();
+        String total1 = transactions.transaction_totals.get(transactions.transaction_totals.size() - 1);
+        String total2 = transactions.transaction_totals.get(transactions.transaction_totals.size() - 2);
+        String total3 = transactions.transaction_totals.get(transactions.transaction_totals.size() - 3);
+        transaction1.setText("Rp. " + total1 + " on " + transactions.transaction_dates.get(transactions.transaction_totals.size() - 1)   );
+        transaction2.setText("Rp. " + total2 + " on " + transactions.transaction_dates.get(transactions.transaction_totals.size() - 2)   );
+        transaction3.setText("Rp. " + total3 + " on " + transactions.transaction_dates.get(transactions.transaction_totals.size() - 3)   );
     }
     
     // With staff/admin name
@@ -56,6 +68,7 @@ public class MainPage extends javax.swing.JFrame {
         totalSummary.setText("Rp. " + GetSummary() );
         incomeThisMonth.setText("Rp. " + GetSummaryThisMonth());
         incomeLastMonth.setText("Rp. " + GetSummaryLastMonth());
+        LastTransactionSummary();
     }
     
     int GetSummary() {
@@ -144,9 +157,9 @@ public class MainPage extends javax.swing.JFrame {
         incomeThisMonth = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        transaction1 = new javax.swing.JLabel();
+        transaction2 = new javax.swing.JLabel();
+        transaction3 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -376,14 +389,14 @@ public class MainPage extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Last Transaction");
 
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("20/11/2024 by 2989 : Rp. 50.000");
+        transaction1.setForeground(new java.awt.Color(255, 255, 255));
+        transaction1.setText("20/11/2024 by 2989 : Rp. 50.000");
 
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("20/11/2024 by 2322 : Rp. 425.000");
+        transaction2.setForeground(new java.awt.Color(255, 255, 255));
+        transaction2.setText("20/11/2024 by 2322 : Rp. 425.000");
 
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("20/11/2024 by 4523 : Rp. 19.000");
+        transaction3.setForeground(new java.awt.Color(255, 255, 255));
+        transaction3.setText("20/11/2024 by 4523 : Rp. 19.000");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -397,9 +410,9 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel14))))
+                            .addComponent(transaction2)
+                            .addComponent(transaction1)
+                            .addComponent(transaction3))))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -408,11 +421,11 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel12)
+                .addComponent(transaction1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel13)
+                .addComponent(transaction2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel14)
+                .addComponent(transaction3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -619,9 +632,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
@@ -636,5 +646,8 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel totalSummary;
+    private javax.swing.JLabel transaction1;
+    private javax.swing.JLabel transaction2;
+    private javax.swing.JLabel transaction3;
     // End of variables declaration//GEN-END:variables
 }

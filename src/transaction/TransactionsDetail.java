@@ -19,12 +19,7 @@ import javax.swing.table.JTableHeader;
 public class TransactionsDetail {
     
     Connection connection;
-    
-//    ArrayList<String> ids_trans = new ArrayList<>();
-//    ArrayList<String> member_ids=new ArrayList<>();
-//    ArrayList<String> transaction_totals=new ArrayList<>();
-//    ArrayList<String> transaction_dates=new ArrayList<>();
-    
+        
     ArrayList<String> ids_trans = new ArrayList<>();
     ArrayList<String> product_names=new ArrayList<>();
     ArrayList<String> quantities=new ArrayList<>();
@@ -37,7 +32,7 @@ public class TransactionsDetail {
     
     TransactionsDetail(int trans_id, int total_recap) {
         
-        CreateConnection();
+        connection = BuiltSystem.CreateConnection(connection);
         try {
             Statement stmt = connection.createStatement();
             ResultSet result = stmt.executeQuery("SELECT \n"

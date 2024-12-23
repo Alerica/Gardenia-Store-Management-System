@@ -32,8 +32,15 @@ public class TransactionPage extends javax.swing.JFrame {
     int total_recap;
     
     public TransactionPage() {
-        CreateConnection();
+        connection = BuiltSystem.CreateConnection(connection);
         initComponents();
+        
+        StartingComponent();
+        
+        RefreshData();
+    }
+    
+    private void StartingComponent() {
         this.setVisible(true);
         this.setLocation(50,50);
         this.setSize(1300,512);
@@ -49,8 +56,6 @@ public class TransactionPage extends javax.swing.JFrame {
         
         Transactions transactions = new Transactions();
         totalMember.setText("Total Transaction : " + transactions.ids_trans.size());
-        
-        RefreshData();
     }
     
     private void RefreshData() {
@@ -167,9 +172,8 @@ public class TransactionPage extends javax.swing.JFrame {
     
     private void ReturnStockProduct(String input){
         Transactions trans = new Transactions();
-        CreateConnection();
+        connection = BuiltSystem.CreateConnection(connection);
         String product_last_update = BuiltSystem.getCurrentDateFormattedProduct();
-//        PreparedStatement stmt = null;
         try{
           Statement stmt = connection.createStatement();
           
@@ -184,7 +188,6 @@ public class TransactionPage extends javax.swing.JFrame {
           }
           
           for(String pID : updateProductIDList){
-                  //update stock yg transaksi dibatalkan/di delete
                 String query = "UPDATE products p\n"
                         + "\n"
                         + "SET p.product_stock = p.product_stock + \n"
@@ -850,22 +853,6 @@ public class TransactionPage extends javax.swing.JFrame {
                 TransactionPage mainPage = new TransactionPage();
             }
         });
-    }
-    
-    void CreateConnection(){
-        String url = "jdbc:mysql://localhost:3306/gardenia";
-        String username = "root"; // Default XAMPP MySQL username
-        String password = "4321";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(url, username, password);
-            System.out.println(BuiltSystem.getCurrentTime() + " Connection Success");
-            
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

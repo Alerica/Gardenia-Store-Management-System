@@ -30,6 +30,12 @@ public class MemberPage extends javax.swing.JFrame {
     public MemberPage() {
         connection = BuiltSystem.CreateConnection(connection);
         initComponents();
+        StartingComponent();
+        
+        RefreshData();
+    }
+    
+    private void StartingComponent(){
         this.setVisible(true);
         this.setLocation(50,50);
         this.setSize(1300,512);
@@ -44,8 +50,6 @@ public class MemberPage extends javax.swing.JFrame {
         
         Members members = new Members();
         totalMember.setText("Total Member : " + members.ids.size());
-        
-        RefreshData();
     }
     
     private void RefreshData() {

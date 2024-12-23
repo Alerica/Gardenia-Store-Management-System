@@ -20,14 +20,14 @@ public class Members {
     
     Connection connection;
     
-    ArrayList<String> ids = new ArrayList<>();
-    ArrayList<String> names = new ArrayList<>();            
-    ArrayList<String> genders = new ArrayList<>();
-    ArrayList<String> registration_dates = new ArrayList<>();
-    ArrayList<String> phone_numbers = new ArrayList<>();
+    public ArrayList<String> ids = new ArrayList<>();
+    public ArrayList<String> names = new ArrayList<>();            
+    public ArrayList<String> genders = new ArrayList<>();
+    public ArrayList<String> registration_dates = new ArrayList<>();
+    public ArrayList<String> phone_numbers = new ArrayList<>();
     
-    Members() {
-        CreateConnection();
+    public Members() {
+        connection = BuiltSystem.CreateConnection(connection);
         try {
             Statement stmt = connection.createStatement();
             ResultSet result = stmt.executeQuery("SELECT * FROM Members");
@@ -51,7 +51,7 @@ public class Members {
         
     }   
     
-    void InsertData(String name, String gender, String phone_number) {
+    public void InsertData(String name, String gender, String phone_number) {
         try {
             
             for(int i = 0; i < ids.size(); i++) { }
@@ -77,7 +77,7 @@ public class Members {
         }
     }
     
-    void DeleteData(String id) {
+    public void DeleteData(String id) {
         try {
             Statement stmt = connection.createStatement();
             stmt.execute("DELETE FROM Members WHERE member_id = '" + id + "';");
@@ -99,21 +99,5 @@ public class Members {
             }
         }
         BuiltSystem.debugLog("DeletedData() Completed");
-    }
-    void CreateConnection(){
-        String url = "jdbc:mysql://localhost:3306/gardenia";
-        String username = "root"; // Default XAMPP MySQL username
-        String password = "4321";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(url, username, password);
-            System.out.println(BuiltSystem.getCurrentTime() + " Connection Success"); 
-            
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(GardeniaStoreManagementSystem.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
+    }    
 }

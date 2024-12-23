@@ -1,22 +1,14 @@
 package cashier;
 
 import gardeniastoremanagementsystem.BuiltSystem;
-import gardeniastoremanagementsystem.GardeniaStoreManagementSystem;
-import members.MemberPage;
 import javax.swing.*;
-import java.awt.Color;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
 import javax.swing.table.DefaultTableModel;
 import login.LoginPage;
-import transaction.TransactionPage;
+import members.Members;
+import products.Products;
+import transaction.Transactions;
 
 public class CashierPage extends javax.swing.JFrame {
 
@@ -345,7 +337,7 @@ public class CashierPage extends javax.swing.JFrame {
                                     .addComponent(memberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 16, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
+                        .addGap(146, 146, 146)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -402,17 +394,7 @@ public class CashierPage extends javax.swing.JFrame {
         }   
         
         BuiltSystem.debugLog("RefreshData() Completed");
-    }
-    
-    private void AddToCart(String product, String price) {
-        BuiltSystem.debugLog("Running AddToCart()");
-        DefaultTableModel tableModel = (DefaultTableModel) cartTable.getModel();
-//        int total_row = tableModel.getRowCount();
-//        for (int i = 0; i < total_row; i++) tableModel.removeRow(0);
-        String rowData[] = {product, "1", price};
-        tableModel.addRow(rowData);
-    }
-    
+    }    
     
     private void AddItemToCart(String ID, String name, int quantity, int price) {
         Products products = new Products();
