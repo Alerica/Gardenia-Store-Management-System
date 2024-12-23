@@ -194,7 +194,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="66" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="/ Product"/>
+                <Property name="text" type="java.lang.String" value="/ Cashier"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
