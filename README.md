@@ -6,9 +6,13 @@ There`s also cashier page to make transaction
 ## 1. Create gardenia Database
 Make sure you already create the gardenia database, you can do this by importing **gardenia.sql**
 
-## 2.Connect to Gardenia Database 
+## 2. Make sure to add Connector.jar
+If you`re using NetBeans you can do this by going to the project_name > Libraries, right click > Add JAR/FOLDER > Add the mysql-connector.jar
+
+## 3.Connect to Gardenia Database 
 Make sure you adjust the username and password of your database
 By default your database username should be "root" and your password should be ""
+
 ```java
 public static Connection CreateConnection(Connection connection){
     String url = "jdbc:mysql://localhost:3306/gardenia";
@@ -28,11 +32,11 @@ public static Connection CreateConnection(Connection connection){
 }
 ```
 
-## 3. Login Page
-If you want to go to the cashier page
+## 4. Login Page
+If you want to go to the admin page
 the default password is "4321" and username is "admin"
 
-If you want to go to the admin page
+If you want to go to the cahsier page
 the default password is "1234" and username is "user"
 
 ## Common issue you may found
