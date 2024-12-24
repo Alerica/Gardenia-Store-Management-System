@@ -2,6 +2,13 @@
 Gardenia Store Managament System is a window application that help organize product, member, transaction.
 There`s also cashier page to make transaction
 
+## Authors
+* 2702224950 - Alexander Ricky Budianto
+* 2702236925 - Grace Birgitta Hadhinata
+* 2702343914 - Rafly Adha Prathama
+* 2702257620 - Christian Jodi Wisnuwardana 
+<br>
+
 # If you want to run Gardenia Store Management System make sure you follow this step
 ## 1. Create gardenia Database
 Make sure you already create the gardenia database, you can do this by importing **gardenia.sql**
