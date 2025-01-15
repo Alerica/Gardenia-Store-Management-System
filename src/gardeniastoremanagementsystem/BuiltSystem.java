@@ -120,7 +120,7 @@ public class BuiltSystem {
     public static Connection CreateConnection(Connection connection){
         String url = "jdbc:mysql://localhost:3306/gardenia";
         String username = "root"; // Default XAMPP MySQL username
-        String password = "4321";
+        String password = "";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, password);
