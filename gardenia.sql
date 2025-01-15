@@ -1,4 +1,3 @@
-DROP SCHEMA `gardenia`;
 CREATE SCHEMA `gardenia`;
 USE `gardenia`;
 
@@ -62,19 +61,10 @@ CREATE TABLE administrators (
 );
 
 INSERT INTO administrators (username, password, role) 
-VALUES ('Ricky', 'no', 'admin');
+VALUES ('admin', '1234', 'admin');
 
 INSERT INTO administrators (username, password, role) 
-VALUES ('Rafly', 'bakso123','admin');
-
-INSERT INTO administrators (username, password, role) 
-VALUES ('Christian', '4321','staff');
-
-INSERT INTO administrators (username, password, role) 
-VALUES ('Grace', '1234','admin');
-
-INSERT INTO administrators (username, password, role) 
-VALUES (' username', ' password', 'admin');
+VALUES ('user', '4321','staff');
 
 INSERT INTO members (member_id, member_name, member_gender, member_registration_date, member_phone_number) VALUES
 (0, 'Guest', 'None', '0000-00-00', '000000000'),
