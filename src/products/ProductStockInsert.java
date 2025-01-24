@@ -8,10 +8,10 @@ public class ProductStockInsert extends javax.swing.JFrame {
     String name, id, stock_now, price_now;
     public ProductStockInsert(String name, String id, String stock_now, String price_now) {
         initComponents();
-        StartingComponent();
+        StartingComponent(name, id, stock_now, price_now);
     }
     
-    private void StartingComponent() {
+    private void StartingComponent(String name, String id, String stock_now, String price_now) {
         this.setLocation(320,150);
         this.setSize(786, 389);
         this.setResizable(false);
